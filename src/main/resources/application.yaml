@@ -14,8 +14,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: ${SPRING_MAIL_USERNAME:hungnnit98@gmail.com}
-    password: ${SPRING_MAIL_PASSWORD:hzoyobgtgndaumvl}
+    username: ${SPRING_MAIL_USERNAME:sendmaildatn@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:hgkurlbdrdvjioyg}
     port: 587
     protocol: smtp
     test-connection: false
@@ -33,7 +33,7 @@ server:
   error:
     include-message: always
 cloud:
-  name: ${CLOUD_NAME:hungnn22cloudinary}
+  name: ${CLOUD_NAME:dph4vbczr}
   api:
-    key: ${CLOUD_API_KEY:384426152519968}
-    secret: ${CLOUD_API_SECRET:WjFBrrrKlAs1vU42mePi4FJLPW0}
+    key: ${CLOUD_API_KEY:131733872728832}
+    secret: ${CLOUD_API_SECRET:0gfNSza1jJXo1tmRWVv3Q7-x2M4}

@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
     private String email;
 
     private static final String ORDER_INFO_TEMPLATE_NAME = "order_info.ftl";
-    private static final String FROM = "WOMAN SHIRT<%s>";
+    private static final String FROM = "SHOES STORE<%s>";
     private static final String SUBJECT = "Xác nhận đơn hàng ";
 
     @Override
@@ -254,7 +254,6 @@ public class OrderServiceImpl implements OrderService {
                 shipPriceReq -= shipPriceReq * Long.valueOf(shipDto.getShipValueLimitAmount());
             }
         }
-
         return Math.max(shipPriceReq, 0L);
     }
 
@@ -445,9 +444,8 @@ public class OrderServiceImpl implements OrderService {
             OrderInfoMail orderIn4 = OrderInfoMail.builder()
                     .from(String.format(FROM, email))
                     .to(customer.getEmail())
-//                    .to("tuannguyen2k1123@gmail.com")
                     .text(FreeMarkerTemplateUtils.processTemplateIntoString(template, orderInfo))
-                    .subject(SUBJECT + order.getCode() + " từ FLONE - LOOK GOOD, FEEL GOOD")
+                    .subject(SUBJECT + order.getCode() + " từ SHOES STORE")
                     .build();
             log.info("----- sendMail4OrderInfo build : {}", JsonUtils.toJson(orderIn4));
             mailService.send4OrderInfo(orderIn4).get();

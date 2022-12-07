@@ -26,12 +26,12 @@
                             padding: 15px 40px 25px 40px;
                             margin: 80px">
                         <div align="center">
-                            <h1 style="color: #27AAE1; font-size: 38px; ">WEBSITE BÁN HÀNG THỜI TRANG WOMAN-SHIRT</h1>
+                            <h1 style="color: #27AAE1; font-size: 20px; ">SHOES STORE</h1>
                         </div>
                         <div style="font-size: 16px">
                             <h3>Chào ${name},</h3>
 
-                            <p>Chúng tôi nhận được một yêu cầu đặt lại mật khẩu cho tài khoản: ${email} vào lúc: ${time}
+                            <p>Chúng tôi nhận được một yêu cầu đặt lại mật khẩu cho tài khoản ${email} vào lúc ${time}
                                 .</p>
                             <p>Nếu bạn không có yêu cầu hoặc có sự nhầm lẫn nào đó thì có thể bỏ qua email này.</p>
                             <p class="text-info">Bấm vào nút bên dưới để xác nhận và tạo mật khẩu mới</p>

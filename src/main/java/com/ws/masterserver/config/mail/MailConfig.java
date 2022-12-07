@@ -14,9 +14,9 @@ public class MailConfig {
 
     private Integer PORT = 587;
 
-    private String USERNAME = "hungnnit98@gmail.com";
+    private String USERNAME = "sendmaildatn@gmail.com";
 
-    private String PASSWORD = "hzoyobgtgndaumvl";
+    private String PASSWORD = "hgkurlbdrdvjioyg";
 
     private static final String PROTOCOL_KEY = "mail.transport.protocol";
     private static final String PROTOCOL_VALUE = "smtp";
