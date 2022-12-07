@@ -30,7 +30,7 @@ import java.util.concurrent.CompletableFuture;
 public class MailServiceImpl implements MailService {
 
     public static final String DISCOUNT_EMAIL_SUBJECT = "KHUYẾN MÃI";
-    private String from = "hungnnit98@gmail.com";
+    private String from = "sendmaildatn@gmail.com";
     private static final String SEND_DISCOUNT_EMAIL = "Hệ thống gửi tặng bạn mã KM: %s";
     private final JavaMailSender sender;
     private final WsRepository repository;

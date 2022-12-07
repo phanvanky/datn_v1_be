@@ -37,12 +37,12 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
     @Value("${spring.mail.username}")
     private String email;
 
-    private static final String CONTENT = "Cảm ơn bạn đã đăng ký tài khoản tại Woman-Shirt. Chúng tôi xin gửi tặng bạn Mã khuyến mãi: %s(%s)";
-    private static final String TEMPLATE = "Cảm ơn bạn đã đăng ký tài khoản tại <b>Woman-Shirt</b>. Chúng tôi xin gửi tặng bạn Mã khuyến mãi: <b>%s</b> (%s)";
+    private static final String CONTENT = "Cảm ơn bạn đã đăng ký tài khoản tại SHOES STORE. Chúng tôi xin gửi tặng bạn Mã khuyến mãi: %s(%s)";
+    private static final String TEMPLATE = "Cảm ơn bạn đã đăng ký tài khoản tại <b>SHOES STORE</b>. Chúng tôi xin gửi tặng bạn Mã khuyến mãi: <b>%s</b> (%s)";
     private static final String DOMAIN_CLIENT = "http://localhost:4200/reset-password/%s";
     private static final long MINUS_TO_EXPIRED = 10;
     private static final String RESET_PASSWORD_TEMPLATE_NAME = "reset_password.ftl";
-    private static final String FROM = "WOMAN SHIRT<%s>";
+    private static final String FROM = "SHOES STORE<%s>";
     private static final String SUBJECT = "QUÊN MẬT KHẨU";
 
 

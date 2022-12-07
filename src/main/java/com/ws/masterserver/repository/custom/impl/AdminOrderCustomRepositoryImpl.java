@@ -25,81 +25,137 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unchecked")
 public class AdminOrderCustomRepositoryImpl implements AdminOrderCustomRepository {
 
-    private final EntityManager entityManager;
+	private final EntityManager entityManager;
 
-    @Override
-    public PageData<OrderRes> search(CurrentUser currentUser, OrderReq payload) {
-        String sql = this.buildSql(payload);
-        log.info("search4Admin() sql: {}", sql);
-        Query query = entityManager.createNativeQuery(sql);
-        Long totalElements = (long) query.getResultList().size();
+	@Override
+	public PageData<OrderRes> search(CurrentUser currentUser, OrderReq payload) {
+		String sql = this.buildSql(payload);
+		log.info("search4Admin() sql: {}", sql);
+		Query query = entityManager.createNativeQuery(sql);
+		Long totalElements = (long) query.getResultList().size();
 
-        if (totalElements == 0) {
-            return new PageData<>(true);
-        }
+		if (totalElements == 0) {
+			return new PageData<>(true);
+		}
 
-        query.setFirstResult(payload.getPageReq().getPage() * payload.getPageReq().getPageSize());
-        query.setMaxResults(payload.getPageReq().getPageSize());
+		query.setFirstResult(payload.getPageReq().getPage() * payload.getPageReq().getPageSize());
+		query.setMaxResults(payload.getPageReq().getPageSize());
 
-        List<Object[]> objects = query.getResultList();
-        List<OrderRes> orderRes = objects.stream().map(this::buildOrderRes).collect(Collectors.toList());
-        return PageData.setResult(
-                orderRes,
-                payload.getPageReq().getPage(),
-                payload.getPageReq().getPageSize(),
-                totalElements);
-    }
+		List<Object[]> objects = query.getResultList();
+		List<OrderRes> orderRes = objects.stream().map(this::buildOrderRes).collect(Collectors.toList());
+		return PageData.setResult(orderRes, payload.getPageReq().getPage(), payload.getPageReq().getPageSize(),
+				totalElements);
+	}
 
-    @NotNull
-    private String buildSql(OrderReq req) {
-        String sql = "select o1.id                                    as order_id,\n" +
-                "       o1.code                                  as order_code,\n" +
-                "       o1.created_date                          as order_date,\n" +
-                "       o1.note                                  as order_note,\n" +
-                "       o1.total                                 as order_total,\n" +
-                "       o1.\"type\"                                as order_type,\n" +
-                "       o1.payed                                 as order_payed,\n" +
-                "       u1.id                                    as cus_id,\n" +
-                "       u1.gender                                as cus_gender,\n" +
-                "       concat(u1.first_name, ' ', u1.last_name) as cus_full_name,\n" +
-                "       u1.phone                                 as cus_phone,\n" +
-                "       concat(a1.exact, ', ', a1.combination)   as order_address,\n" +
-                "       st1.\"name\"                               as ship_type_name,\n" +
-                "       os3.status                               as status_now,\n" +
-                "       os3.created_date                         as status_date,\n" +
-                "       u2.\"role\"                                as status_role,\n" +
-                "       concat(u2.first_name, ' ', u2.last_name) as status_full_name,\n" +
-                "       os3.note                                 as status_note\n" +
-                "from orders o1\n" +
-                "         left join address a1 on\n" +
-                "    a1.id = o1.address_id\n" +
-                "         left join users u1 on\n" +
-                "    u1.id = o1.user_id\n" +
-                "         left join ship_type st1 on\n" +
-                "    st1.id = o1.ship_type_id\n" +
-                "         left join (\n" +
-                "    select os1.order_id          as os2_order_id,\n" +
-                "           max(os1.created_date) as os2_created_date\n" +
-                "    from order_status os1\n" +
-                "    group by os1.order_id) os2 on\n" +
-                "    os2.os2_order_id = o1.id\n" +
-                "         left join order_status os3 on\n" +
-                "    os3.created_date = os2.os2_created_date\n" +
-                "         left join users u2 on\n" +
-                "    u2.id = os3.created_by\n" +
-                "where 1 = 1\n";
-        if (!StringUtils.isNullOrEmpty(req.getStatus())) {
-            sql += "and os3.status = '" + req.getStatus() + "'\n";
-        }
-        if (!StringUtils.isNullOrEmpty(req.getProvinceId())) {
-            sql += "and a1.province_code = '" + req.getProvinceId() + "'\n";
-        }
-        if (!StringUtils.isNullOrEmpty(req.getDistrictId())) {
-            sql += "and a1.district_code = '" + req.getDistrictId() + "'\n";
-        }
-        if (!StringUtils.isNullOrEmpty(req.getWardCode())) {
-            sql += "and a1.ward_code = '" + req.getWardCode() + "'\n";
-        }
+	@NotNull
+	private String buildSql(OrderReq req) {
+//        String sql = "select o1.id                                    as order_id,\n" +
+//                "       o1.code                                  as order_code,\n" +
+//                "       o1.created_date                          as order_date,\n" +
+//                "       o1.note                                  as order_note,\n" +
+//                "       o1.total                                 as order_total,\n" +
+//                "       o1.\"type\"                                as order_type,\n" +
+//                "       o1.payed                                 as order_payed,\n" +
+//                "       u1.id                                    as cus_id,\n" +
+//                "       u1.gender                                as cus_gender,\n" +
+//                "       concat(u1.first_name, ' ', u1.last_name) as cus_full_name,\n" +
+//                "       u1.phone                                 as cus_phone,\n" +
+//                "       concat(a1.exact, ', ', a1.combination)   as order_address,\n" +
+//                "       st1.\"name\"                               as ship_type_name,\n" +
+//                "       os3.status                               as status_now,\n" +
+//                "       os3.created_date                         as status_date,\n" +
+//                "       u2.\"role\"                                as status_role,\n" +
+//                "       concat(u2.first_name, ' ', u2.last_name) as status_full_name,\n" +
+//                "       os3.note                                 as status_note\n" +
+//                "from orders o1\n" +
+//                "         left join address a1 on\n" +
+//                "    a1.id = o1.address_id\n" +
+//                "         left join users u1 on\n" +
+//                "    u1.id = o1.user_id\n" +
+//                "         left join ship_type st1 on\n" +
+//                "    st1.id = o1.ship_type_id\n" +
+//                "         left join (\n" +
+//                "    select os1.order_id          as os2_order_id,\n" +
+//                "           max(os1.created_date) as os2_created_date\n" +
+//                "    from order_status os1\n" +
+//                "    group by os1.order_id) os2 on\n" +
+//                "    os2.os2_order_id = o1.id\n" +
+//                "         left join order_status os3 on\n" +
+//                "    os3.created_date = os2.os2_created_date\n" +
+//                "         left join users u2 on\n" +
+//                "    u2.id = os3.created_by\n" +
+//                "where 1 = 1\n";
+//		String sql = "select o1.id                                    as order_id,\r\n"
+//				+ "       o1.code                                  as order_code,\r\n"
+//				+ "       o1.created_date                          as order_date,\r\n"
+//				+ "       o1.note                                  as order_note,\r\n"
+//				+ "       o1.total                                 as order_total,\r\n"
+//				+ "       o1.payed                                 as order_payed,\r\n"
+//				+ "       u1.id                                    as cus_id,\r\n"
+//				+ "       u1.gender                                as cus_gender,\r\n"
+//				+ "       concat(u1.first_name, ' ', u1.last_name) as cus_full_name,\r\n"
+//				+ "       u1.phone                                 as cus_phone,\r\n"
+//				+ "       concat(a1.exact, ', ', a1.combination)   as order_address,\r\n"
+//				+ "       st1.\"name\"                               as ship_type_name,\r\n"
+//				+ "       os3.status                               as status_now,\r\n"
+//				+ "       os3.created_date                         as status_date,\r\n"
+//				+ "       u2.\"role\"                                as status_role,\r\n"
+//				+ "       concat(u2.first_name, ' ', u2.last_name) as status_full_name,\r\n"
+//				+ "       os3.note                                 as status_note\r\n" + "from orders o1\r\n"
+//				+ "         left join address a1 on\r\n" + "    a1.id = o1.address_id\r\n"
+//				+ "         left join users u1 on\r\n" + "    u1.id = o1.user_id\r\n"
+//				+ "         left join ship_type st1 on\r\n" + "    st1.id = o1.ship_type_id\r\n"
+//				+ "         left join (\r\n" + "    select os1.order_id          as os2_order_id,\r\n"
+//				+ "           max(os1.created_date) as os2_created_date\r\n" + "    from order_status os1\r\n"
+//				+ "    group by os1.order_id) os2 on\r\n" + "    os2.os2_order_id = o1.id\r\n"
+//				+ "         left join order_status os3 on\r\n" + "    os3.created_date = os2.os2_created_date\r\n"
+//				+ "         left join users u2 on\r\n" + "    u2.id = os3.created_by\r\n" + "where 1 = 1\r\n"
+//				+ "order by o1.created_date desc";
+		String sql = "select\r\n" + "        o1.id                                    as order_id,\r\n"
+				+ "        o1.code                                  as order_code,\r\n"
+				+ "        o1.created_date                          as order_date,\r\n"
+				+ "        o1.note                                  as order_note,\r\n"
+				+ "        o1.total                                 as order_total,\r\n"
+				+ "        o1.payed                                 as order_payed,\r\n"
+				+ "        u1.id                                    as cus_id,\r\n"
+				+ "        u1.gender                                as cus_gender,\r\n"
+				+ "        concat(u1.first_name,\r\n" + "        ' ',\r\n"
+				+ "        u1.last_name) as cus_full_name,\r\n"
+				+ "        u1.phone                                 as cus_phone,\r\n" + "        concat(a1.exact,\r\n"
+				+ "        ', ',\r\n" + "        a1.combination)   as order_address,\r\n"
+				+ "        st1.\"name\"                               as ship_type_name,\r\n"
+				+ "        os3.status                               as status_now,\r\n"
+				+ "        os3.created_date                         as status_date,\r\n"
+				+ "        u2.\"role\"                                as status_role,\r\n"
+				+ "        concat(u2.first_name,\r\n" + "        ' ',\r\n"
+				+ "        u2.last_name) as status_full_name,\r\n"
+				+ "        os3.note                                 as status_note  \r\n" + "    from\r\n"
+				+ "        orders o1           \r\n" + "    left join\r\n" + "        address a1 \r\n"
+				+ "            on      a1.id = o1.address_id           \r\n" + "    left join\r\n"
+				+ "        users u1 \r\n" + "            on      u1.id = o1.user_id           \r\n"
+				+ "    left join\r\n" + "        ship_type st1 \r\n"
+				+ "            on      st1.id = o1.ship_type_id           \r\n" + "    left join\r\n" + "        (\r\n"
+				+ "            select\r\n" + "                os1.order_id          as os2_order_id,\r\n"
+				+ "                max(os1.created_date) as os2_created_date      \r\n" + "            from\r\n"
+				+ "                order_status os1      \r\n" + "            group by\r\n"
+				+ "                os1.order_id\r\n" + "        ) os2 \r\n"
+				+ "            on      os2.os2_order_id = o1.id           \r\n" + "    left join\r\n"
+				+ "        order_status os3 \r\n"
+				+ "            on      os3.created_date = os2.os2_created_date           \r\n" + "    left join\r\n"
+				+ "        users u2 \r\n" + "            on      u2.id = os3.created_by  \r\n" + "    where\r\n"
+				+ "        1 = 1  \r\n" + "    order by\r\n" + "        o1.created_date desc";
+		if (!StringUtils.isNullOrEmpty(req.getStatus())) {
+			sql += "and os3.status = '" + req.getStatus() + "'\n";
+		}
+		if (!StringUtils.isNullOrEmpty(req.getProvinceId())) {
+			sql += "and a1.province_code = '" + req.getProvinceId() + "'\n";
+		}
+		if (!StringUtils.isNullOrEmpty(req.getDistrictId())) {
+			sql += "and a1.district_code = '" + req.getDistrictId() + "'\n";
+		}
+		if (!StringUtils.isNullOrEmpty(req.getWardCode())) {
+			sql += "and a1.ward_code = '" + req.getWardCode() + "'\n";
+		}
 //        if (!StringUtils.isNullOrEmpty(req.getTime())) {
 //            switch (req.getTime()) {
 //                case "day":
@@ -115,72 +171,61 @@ public class AdminOrderCustomRepositoryImpl implements AdminOrderCustomRepositor
 //                    break;
 //            }
 //        }
-        if (!StringUtils.isNullOrEmpty(req.getTextSearch())) {
-            String textSearch = "'%" + req.getTextSearch().trim().toUpperCase(Locale.ROOT) + "%'";
-            sql += "and (unaccent(upper(trim(concat(u1.first_name, ' ', u1.last_name)))) like " + textSearch + " or\n" +
-                    "u1.phone like " + textSearch + " or o1.code like" + textSearch + ")\n";
-        }
+		if (!StringUtils.isNullOrEmpty(req.getTextSearch())) {
+			String textSearch = "'%" + req.getTextSearch().trim().toUpperCase(Locale.ROOT) + "%'";
+			sql += "and (unaccent(upper(trim(concat(u1.first_name, ' ', u1.last_name)))) like " + textSearch + " or\n"
+					+ "u1.phone like " + textSearch + " or o1.code like" + textSearch + ")\n";
+		}
 
+		this.addOrderFilter(req.getPageReq());
 
-        this.addOrderFilter(req.getPageReq());
+		sql += "order by " + req.getPageReq().getSortField() + " " + req.getPageReq().getSortDirection() + "\n";
+		return sql;
+	}
 
-        sql += "order by " + req.getPageReq().getSortField() + " " + req.getPageReq().getSortDirection() + "\n";
-        return sql;
-    }
+	private OrderRes buildOrderRes(Object[] obj) {
+		String statusNow = JpaUtils.getString(obj[13]);
+		Date statusDate = JpaUtils.getDate(obj[14]);
+		String roleStr = JpaUtils.getString(obj[15]);
+		String combinationName = JpaUtils.getString(obj[16]);
+		String customerName = JpaUtils.getString(obj[9]);
+		String id = JpaUtils.getString(obj[0]);
+		String code = JpaUtils.getString(obj[1]);
+		Date createdDate = JpaUtils.getDate(obj[2]);
+		String note = JpaUtils.getString(obj[3]);
+		Long total = JpaUtils.getLong(obj[4]);
+		String type = JpaUtils.getString(obj[5]);
+		Boolean payed = JpaUtils.getBoolean(obj[6]);
+		String customerId = JpaUtils.getString(obj[7]);
+		String phone = JpaUtils.getString(obj[10]);
+		String addressCombination = JpaUtils.getString(obj[11]);
+		return OrderRes.builder().id(id).code(code).createdDate(createdDate)
+				.createdDateFmt(DateUtils.toStr(createdDate, DateUtils.F_DDMMYYYYHHMM)).note(note).total(total)
+				.totalFmt(MoneyUtils.formatV2(total)).type(OrderTypeUtils.getOrderTypeStr(type, payed))
+				.customerId(customerId).customerName(customerName).phone(phone).addressCombination(addressCombination)
+				.statusCombination(OrderUtils.getStatusCombination(statusNow, statusDate, roleStr, combinationName))
+				.options(OrderUtils.getOptions4Admin(statusNow)).build();
+	}
 
-    private OrderRes buildOrderRes(Object[] obj) {
-        String statusNow = JpaUtils.getString(obj[13]);
-        Date statusDate = JpaUtils.getDate(obj[14]);
-        String roleStr = JpaUtils.getString(obj[15]);
-        String combinationName = JpaUtils.getString(obj[16]);
-        String customerName = JpaUtils.getString(obj[9]);
-        String id = JpaUtils.getString(obj[0]);
-        String code = JpaUtils.getString(obj[1]);
-        Date createdDate = JpaUtils.getDate(obj[2]);
-        String note = JpaUtils.getString(obj[3]);
-        Long total = JpaUtils.getLong(obj[4]);
-        String type = JpaUtils.getString(obj[5]);
-        Boolean payed = JpaUtils.getBoolean(obj[6]);
-        String customerId = JpaUtils.getString(obj[7]);
-        String phone = JpaUtils.getString(obj[10]);
-        String addressCombination = JpaUtils.getString(obj[11]);
-        return OrderRes.builder()
-                .id(id)
-                .code(code)
-                .createdDate(createdDate)
-                .createdDateFmt(DateUtils.toStr(createdDate, DateUtils.F_DDMMYYYYHHMM))
-                .note(note)
-                .total(total)
-                .totalFmt(MoneyUtils.formatV2(total))
-                .type(OrderTypeUtils.getOrderTypeStr(type, payed))
-                .customerId(customerId)
-                .customerName(customerName)
-                .phone(phone)
-                .addressCombination(addressCombination)
-                .statusCombination(OrderUtils.getStatusCombination(statusNow, statusDate, roleStr, combinationName))
-                .options(OrderUtils.getOptions4Admin(statusNow))
-                .build();
-    }
-
-    private void addOrderFilter(PageReq pageReq) {
-        if (StringUtils.isNullOrEmpty(pageReq.getSortDirection())) {
-            pageReq.setSortDirection("desc");
-        }
-        if (StringUtils.isNullOrEmpty(pageReq.getSortField()) || pageReq.getSortField().equals("date")) {
-            pageReq.setSortField("o1.created_date");
-            return;
-        }
-        String orderField = "";
-        switch (pageReq.getSortField()) {
-            case "customer":
-                orderField = "u1.last_name";
-                break;
-            case "total":
-                orderField = "o1.total";
-                break;
-            default:
-                throw new WsException(WsCode.INTERNAL_SERVER);
-        }
-        pageReq.setSortField(orderField);
-    }
+	private void addOrderFilter(PageReq pageReq) {
+		if (StringUtils.isNullOrEmpty(pageReq.getSortDirection())) {
+			pageReq.setSortDirection("desc");
+		}
+		if (StringUtils.isNullOrEmpty(pageReq.getSortField()) || pageReq.getSortField().equals("date")) {
+			pageReq.setSortField("o1.created_date");
+			return;
+		}
+		String orderField = "";
+		switch (pageReq.getSortField()) {
+		case "customer":
+			orderField = "u1.last_name";
+			break;
+		case "total":
+			orderField = "o1.total";
+			break;
+		default:
+			throw new WsException(WsCode.INTERNAL_SERVER);
+		}
+		pageReq.setSortField(orderField);
+	}
 }

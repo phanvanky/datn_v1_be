@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 public class VnPayConfig {
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "http://localhost:4200/thong-tin-thanh-toan";
-    public static String vnp_TmnCode = "0TPQIISI";
-    public static String vnp_HashSecret = "NCRUQOTDDVEEYVYAVHKHTAQRWTHNYWIZ";
+    public static String vnp_TmnCode = "PWDT1D58";
+    public static String vnp_HashSecret = "FPSWJOPBPMVCXEYMDXQBZGXBEOWVBTGR";
     public static String vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
 
     public static String md5(String message) {
