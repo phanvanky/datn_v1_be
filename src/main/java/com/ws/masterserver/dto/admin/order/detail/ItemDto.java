@@ -16,7 +16,7 @@ public class ItemDto {
     private String color;
     private String size;
     private String image;
-    private String materialName;
+    private String brandName;
     private String categoryName;
     private Integer qty;
     private Long price;
@@ -26,13 +26,13 @@ public class ItemDto {
     private Long total;
     private String totalFmt;
 
-    public ItemDto(String productId, String productName, String color, String size, String image, String materialName, String categoryName, Integer qty, Long price, Long discount, Long total) {
+    public ItemDto(String productId, String productName, String color, String size, String image, String brandName, String categoryName, Integer qty, Long price, Long discount, Long total) {
         this.productId = productId;
         this.productName = productName;
         this.color = color;
         this.size = size;
         this.image = image;
-        this.materialName = materialName;
+        this.brandName = brandName;
         this.categoryName = categoryName;
         this.qty = qty;
         this.price = price;

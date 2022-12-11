@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MaterialDto {
+public class BrandDto {
     private String id;
     private String name;
 }

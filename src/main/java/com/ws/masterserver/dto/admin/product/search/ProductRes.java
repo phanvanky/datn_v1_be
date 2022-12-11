@@ -24,7 +24,7 @@ public class ProductRes {
     private Date createdDate;
     private String createdDateFmt;
     private Long qty;
-    private String materialName;
+    private String brandName;
     private String categoryName;
     private String typeName;
     private Long soldNumber;

@@ -83,7 +83,7 @@ public class WsConst {
         public static final String QTY_VI = "Số lượng";
         public static final String STATUS_VI = "Trạng thái";
         public static final String CATEGORY_VI = "Loại sản phẩm";
-        public static final String MATERIAL_VI = "Chất liệu";
+        public static final String BRAND_VI = "Chất liệu";
         public static final String COLOR_VI = "Màu sắc";
         public static final String SIZE_VI = "Kích thước";
         /** Object */

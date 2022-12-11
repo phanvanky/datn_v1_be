@@ -14,7 +14,7 @@ public enum WsCode {
     COLOR_EXISTS_NAME("400", "Tên màu đã tồn tại"),
     COLOR_EXISTS_HEX("400", "Mã màu đã tồn tại"),
     CART_IS_EMPTY("400", "Giỏ hàng không có sản phẩm ! Không thể checkout !"),
-    MATERIAL_NOT_FOUND("400", "Không tìm thấy chất liệu sản phẩm!"),
+    BRAND_NOT_FOUND("400", "Không tìm thấy thương hiệu!"),
     PRODUCT_NOT_FOUND("400", "Không tìm thấy chất liệu sản phẩm!"),
     INTERNAL_SERVER("500", "Hệ thống đang bị gián đoạn! Xin vui lòng thử lại sau"),
     BAD_REQUEST("400", "Dữ liệu không hợp lệ!"),

@@ -14,7 +14,7 @@ public class ProductSubDto {
     private String name;
     private Long minPrice;
     private Long maxPrice;
-    private String materialName;
+    private String brandName;
     private String categoryName;
     private String des;
     private String typeName;

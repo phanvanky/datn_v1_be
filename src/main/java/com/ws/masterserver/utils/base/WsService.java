@@ -12,7 +12,7 @@ public class WsService {
     public final CategoryService categoryService;
     public final TopicService topicService;
     public final ColorService colorService;
-    public final MaterialService materialService;
+    public final BrandService brandService;
     public final EmailLogService emailLogService;
     public final FavouriteService favouriteService;
     public final OrderService orderService;

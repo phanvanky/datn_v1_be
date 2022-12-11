@@ -48,7 +48,7 @@ public class AdminProductServiceImpl implements AdminProductService {
                 .name(dto.getName().trim())
                 .des(dto.getDes())
                 .categoryId(dto.getCategoryId())
-                .materialId(dto.getMaterialId())
+                .brandId(dto.getBrandId())
                 .active(true)
                 .createdBy(currentUserId)
                 .createdDate(now)
@@ -143,7 +143,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 
         product.setCategoryId(payload.getCategoryId())
                 .setName(payload.getName().trim())
-                .setMaterialId(payload.getMaterialId())
+                .setBrandId(payload.getBrandId())
                 .setDes(payload.getDes().trim())
                 .setUpdatedDate(new Date())
                 .setUpdatedBy(currentUser.getId());

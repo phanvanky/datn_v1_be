@@ -48,10 +48,10 @@ public class ProductServiceImpl implements ProductService {
         response.setProductName(product.getName());
         response.setDescription(product.getDes());
 
-        MaterialEntity material = repository.materialRepository.findById(product.getMaterialId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(WsConst.Messages.NOT_FOUND, WsConst.Nouns.MATERIAL_VI)));
+        BrandEntity brand = repository.brandRepository.findById(product.getBrandId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, String.format(WsConst.Messages.NOT_FOUND, WsConst.Nouns.BRAND_VI)));
 
-        response.setMaterial(material.getName());
+        response.setBrand(brand.getName());
 
         CategoryEntity category = repository.categoryRepository.findById(product.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Not found category with id = " + id));

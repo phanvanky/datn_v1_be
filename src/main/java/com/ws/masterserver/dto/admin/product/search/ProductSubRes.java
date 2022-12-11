@@ -16,11 +16,11 @@ public class ProductSubRes {
     private String des;
     private Boolean active;
     private Date createdDate;
-    private String materialName;
+    private String brandName;
     private String categoryName;
     private String typeName;
 
-    public ProductSubRes(String id, String name, Long minPrice, Long maxPrice, Long qty, String des, Boolean active, Date createdDate, String materialName, String categoryName, String typeName) {
+    public ProductSubRes(String id, String name, Long minPrice, Long maxPrice, Long qty, String des, Boolean active, Date createdDate, String brandName, String categoryName, String typeName) {
         this.id = id;
         this.name = name;
         this.minPrice = minPrice;
@@ -29,7 +29,7 @@ public class ProductSubRes {
         this.des = des;
         this.active = active;
         this.createdDate = createdDate;
-        this.materialName = materialName;
+        this.brandName = brandName;
         this.categoryName = categoryName;
         this.typeName = typeName;
     }

@@ -70,9 +70,9 @@ public class NoAuthController extends WsController {
         return service.colorService.noPage();
     }
 
-    @GetMapping("/material/no-page")
-    public Object materialNoPage() {
-        return service.materialService.noPage();
+    @GetMapping("/brand/no-page")
+    public Object brandNoPage() {
+        return service.brandService.noPage();
     }
 
 }

@@ -15,7 +15,7 @@ public class WsRepository {
     public final CategoryRepository categoryRepository;
     public final ColorRepository colorRepository;
     public final FavouriteRepository favouriteRepository;
-    public final MaterialRepository materialRepository;
+    public final BrandRepository brandRepository;
     public final OrderRepository orderRepository;
     public final OrderDetailRepository orderDetailRepository;
     public final OrderStatusRepository orderStatusRepository;

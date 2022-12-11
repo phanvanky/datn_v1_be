@@ -44,7 +44,7 @@ public class AdminProductDetailServiceImpl implements AdminProductDetailService 
                 .name(product.getName())
                 .categoryId(product.getCategoryId())
                 .des(product.getDes())
-                .materialId(product.getMaterialId())
+                .brandId(product.getBrandId())
                 .options(options)
                 .reviews(reviews)
                 .build();

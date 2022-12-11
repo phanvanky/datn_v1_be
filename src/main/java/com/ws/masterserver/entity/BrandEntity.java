@@ -12,14 +12,14 @@ import javax.persistence.*;
  */
 
 
-@Entity
-@Table(name = "material")
+@Entity()
+@Table(name = "brand")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class MaterialEntity {
+public class BrandEntity {
     @Id
     private String id;
 

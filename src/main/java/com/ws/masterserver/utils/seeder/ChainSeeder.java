@@ -31,9 +31,9 @@ public class ChainSeeder implements Seeder {
     public void seed() {
         List<TypeEntity> types = initTypes();
         List<ColorEntity> colors = initColors();
-        List<MaterialEntity> materials = initMaterials();
+        List<BrandEntity> brands = initBrands();
         CategoryEntity category = initCategory(types);
-        ProductEntity product = initProduct(category, materials);
+        ProductEntity product = initProduct(category, brands);
         List<ProductOptionEntity> productOptions = initProductOptions(product, colors);
         List<OrderEntity> orders = initUsers();
         orders.forEach(order -> {
@@ -65,28 +65,28 @@ public class ChainSeeder implements Seeder {
         return repository.typeRepository.saveAll(types);
     }
 
-    private List<MaterialEntity> initMaterials() {
+    private List<BrandEntity> initBrands() {
 
-        List<MaterialEntity> materials = Arrays.asList(
-                MaterialEntity.builder()
+        List<BrandEntity> brands = Arrays.asList(
+                BrandEntity.builder()
                         .id(UidUtils.generateUid())
-                        .name(MaterialEnum.MTR01.getName())
+                        .name(BrandEnum.MTR01.getName())
                         .active(Boolean.TRUE)
                         .build(),
-                MaterialEntity.builder()
+                BrandEntity.builder()
                         .id(UidUtils.generateUid())
-                        .name(MaterialEnum.MTR02.getName())
+                        .name(BrandEnum.MTR02.getName())
                         .active(Boolean.TRUE)
                         .build(),
-                MaterialEntity.builder()
+                BrandEntity.builder()
                         .id(UidUtils.generateUid())
-                        .name(MaterialEnum.MTR03.getName())
+                        .name(BrandEnum.MTR03.getName())
                         .active(Boolean.TRUE)
                         .build()
         );
-        log.info("3. save material list: {}", JsonUtils.toJson(materials));
-        repository.materialRepository.saveAll(materials);
-        return materials;
+        log.info("3. save brand list: {}", JsonUtils.toJson(brands));
+        repository.brandRepository.saveAll(brands);
+        return brands;
     }
 
     private List<ColorEntity> initColors() {
@@ -169,13 +169,13 @@ public class ChainSeeder implements Seeder {
         return productOptions;
     }
 
-    private ProductEntity initProduct(CategoryEntity category, List<MaterialEntity> materials) {
+    private ProductEntity initProduct(CategoryEntity category, List<BrandEntity> brands) {
         ProductEntity product = ProductEntity.builder()
                 .id(WsConst.Seeders.PRODUCT_ID)
                 .categoryId(category.getId())
                 .name(WsConst.Seeders.PRODUCT_NAME)
                 .des(WsConst.Seeders.PRODUCT_DES)
-                .materialId(materials.get(getRandomIndex(materials.size())).getId())
+                .brandId(brands.get(getRandomIndex(brands.size())).getId())
                 .active(Boolean.TRUE)
                 .build();
         repository.productRepository.save(product);

@@ -1,7 +1,7 @@
 package com.ws.masterserver.controller.admin;
 
 import com.ws.masterserver.utils.base.WsController;
-import com.ws.masterserver.utils.base.enum_dto.MaterialDto;
+import com.ws.masterserver.utils.base.enum_dto.BrandDto;
 import com.ws.masterserver.utils.base.rest.ResData;
 import com.ws.masterserver.utils.common.JsonUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,29 +15,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/admin/material")
+@RequestMapping("/api/v1/admin/brand")
 @RequiredArgsConstructor
 @Slf4j
-public class AdminMaterialController extends WsController {
+public class AdminBrandController extends WsController {
 
     @PostMapping("/create")
-    @Operation(summary = "API thêm mới chất liệu sp")
-    public ResponseEntity<ResData<String>> create(@RequestBody MaterialDto dto){
+    @Operation(summary = "API thêm mới thương hiệu sp")
+    public ResponseEntity<ResData<String>> create(@RequestBody BrandDto dto){
         log.info("start api create with dto: {}", JsonUtils.toJson(dto));
-        return ResponseEntity.status(HttpStatus.OK).body(service.materialService.create(getCurrentUser(), dto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.brandService.create(getCurrentUser(), dto));
     }
 
     @PostMapping("/update")
-    @Operation(summary = "API sửa chất liệu sp")
-    public ResponseEntity<ResData<String>> update(@RequestBody MaterialDto dto){
+    @Operation(summary = "API sửa thương hiệu sp")
+    public ResponseEntity<ResData<String>> update(@RequestBody BrandDto dto){
         log.info("start api update with dto: {}", JsonUtils.toJson(dto));
-        return ResponseEntity.status(HttpStatus.OK).body(service.materialService.update(getCurrentUser(), dto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.brandService.update(getCurrentUser(), dto));
     }
 
     @PostMapping("/delete")
     @Operation(summary = "API xóa chất liệu sp")
-    public ResponseEntity<ResData<String>> delete(@RequestBody MaterialDto dto){
+    public ResponseEntity<ResData<String>> delete(@RequestBody BrandDto dto){
         log.info("start api delele with dto: {}", JsonUtils.toJson(dto));
-        return ResponseEntity.status(HttpStatus.OK).body(service.materialService.delete(getCurrentUser(), dto));
+        return ResponseEntity.status(HttpStatus.OK).body(service.brandService.delete(getCurrentUser(), dto));
     }
 }

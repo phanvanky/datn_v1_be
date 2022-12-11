@@ -18,7 +18,7 @@ public class ProductResponse {
     private String price;
     private String categoryName;
     private String des;
-    private String materialName;
+    private String brandName;
     private Date createdDate;
     private String createdBy;
     private String createdName;

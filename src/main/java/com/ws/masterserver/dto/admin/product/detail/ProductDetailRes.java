@@ -13,7 +13,7 @@ public class ProductDetailRes {
     private Object id;
     private Object name;
     private Object categoryId;
-    private Object materialId;
+    private Object brandId;
     private Object des;
     private Object options;
     private Object reviews;

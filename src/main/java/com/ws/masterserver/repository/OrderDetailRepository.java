@@ -22,7 +22,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "color.name,\n" +
             "sizes.name,\n" +
             "productOption.image,\n" +
-            "material.name,\n" +
+            "brand.name,\n" +
             "category.name,\n" +
             "coalesce(orderDetail.qty, 0) ,\n" +
             "coalesce(orderDetail.price, 0) ,\n" +
@@ -34,7 +34,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
             "left join ColorEntity color on color.id = productOption.colorId\n" +
             "left join SizeEntity sizes on sizes.id = productOption.sizeId\n" +
             "left join CategoryEntity category on category.id = product.categoryId\n" +
-            "left join MaterialEntity material on material.id = product.materialId\n" +
+            "left join BrandEntity brand on brand.id = product.brandId\n" +
             "where orderDetail.orderId = :orderId")
     List<ItemDto> getOrderDetailItemByOrderId(@Param("orderId") String orderId);
 

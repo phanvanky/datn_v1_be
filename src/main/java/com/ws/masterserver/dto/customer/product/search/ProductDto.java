@@ -51,7 +51,7 @@ public class ProductDto {
     /**
      * tên chất liệu
      */
-    private String materialName;
+    private String brandName;
 
     /**
      * mô tả

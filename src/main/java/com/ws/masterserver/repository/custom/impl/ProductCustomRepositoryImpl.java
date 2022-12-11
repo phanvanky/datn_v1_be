@@ -40,14 +40,14 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                         "cast(po.price as string) as price,\n" +
                         "c.name as categoryName,\n" +
                         "p.des as description,\n" +
-                        "m.name as materialName,\n" +
+                        "m.name as brandName,\n" +
 //                "t.name as typeName,\n" +
                         "p.createdDate as productCreatedDate,\n" +
                         "p.createdBy as productCreatedBy,\n" +
                         "trim(concat(coalesce(u.firstName, ''), ' ', coalesce(u.lastName, ''))) as createdName)\n";
         String from = "from ProductEntity p\n";
         String joins = "left join CategoryEntity c on p.categoryId = c.id\n" +
-                "left join MaterialEntity m on p.materialId = m.id\n" +
+                "left join BrandEntity m on p.brandId = m.id\n" +
 //                "left join TypeEntity t on p.typeId = t.id\n" +
                 "left join UserEntity u on p.createdBy = u.id\n" +
                 "left join ProductOptionEntity po on p.id = po.productId\n";
@@ -138,8 +138,8 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                 "    from product_option po_sub1\n" +
                 "    group by po_sub1.product_id) po1 on\n" +
                 "        po1.po_sub1_product_id = p1.id\n" +
-                "         left join material m1 on\n" +
-                "        m1.id = p1.material_id\n" +
+                "         left join brand m1 on\n" +
+                "        m1.id = p1.brand_id\n" +
                 "         left join category ct1 on\n" +
                 "        ct1.id = p1.category_id\n" +
                 "         left join type t1 on\n" +
@@ -197,7 +197,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                         .minPrice(JpaUtils.getLong(obj[2]))
                         .maxPrice(JpaUtils.getLong(obj[3]))
                         .des(JpaUtils.getString(obj[4]))
-                        .materialName(JpaUtils.getString(obj[5]))
+                        .brandName(JpaUtils.getString(obj[5]))
                         .categoryName(JpaUtils.getString(obj[6]))
                         .typeName(JpaUtils.getString(obj[7]))
                         .colors(repository.colorRepository.findDistinctByProductId(productId))
@@ -264,7 +264,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                 "coalesce((select count(po4.id) from product_option po4 where po4.product_id = p1.id), 0) as po_sum,\n" +
                 "coalesce(p1.view_number, 0) as p1_view_number\n" +
                 "from product p1\n" +
-                "left join material m1 on m1.id = p1.material_id\n" +
+                "left join brand m1 on m1.id = p1.brand_id\n" +
                 "left join category ct1 on ct1.id = p1.category_id\n" +
                 "left join type t1 on t1.id = ct1.type_id\n" +
                 "where 1 = 1\n";
@@ -317,7 +317,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
             final String des = JpaUtils.getString(obj[5]);
             final Boolean active = JpaUtils.getBoolean(obj[6]);
             final Date createdDate = JpaUtils.getDate(obj[7]);
-            final String materialName = JpaUtils.getString(obj[8]);
+            final String brandName = JpaUtils.getString(obj[8]);
             final String categoryName = JpaUtils.getString(obj[9]);
             final String typeName = JpaUtils.getString(obj[10]);
             final Long productOptionNumber = JpaUtils.getLong(obj[11]);
@@ -340,7 +340,7 @@ public class ProductCustomRepositoryImpl implements ProductCustomRepository {
                     .activeClazz(active ? "success" : "danger")
                     .createdDate(createdDate)
                     .createdDateFmt(createdDate == null ? null : DateUtils.toStr(createdDate, DateUtils.F_DDMMYYYY))
-                    .materialName(materialName)
+                    .brandName(brandName)
                     .categoryName(categoryName)
                     .typeName(typeName)
                     .sizes(sizes)

@@ -268,7 +268,7 @@ CREATE TABLE public.favourite (
 
 
 
-CREATE TABLE public.material (
+CREATE TABLE public.brand (
     id character varying(255) NOT NULL,
     active boolean,
     name character varying(255),
@@ -350,7 +350,7 @@ CREATE TABLE public.product (
     created_by character varying(255),
     created_date timestamp without time zone,
     des character varying(2000),
-    material_id character varying(255),
+    brand_id character varying(255),
     name character varying(255),
     updated_by character varying(255),
     updated_date timestamp without time zone,
@@ -664,11 +664,11 @@ INSERT INTO public.favourite VALUES ('411ec9de-f8d7-43c6-9038-43a1984646c2', '8f
 
 
 
-INSERT INTO public.material VALUES ('39cea751-a426-422b-a0ac-569d711ddd38', true, 'Vải', NULL);
-INSERT INTO public.material VALUES ('8c20116a-ab17-45a9-ae03-35c62cdb029f', true, 'Cotton', NULL);
-INSERT INTO public.material VALUES ('61018676-af7e-419d-9b91-f246315fbc8c', true, 'Ka-ki', NULL);
-INSERT INTO public.material VALUES ('87293753-e39e-473b-91e4-eae4fed864b5', true, 'Polyester', NULL);
-INSERT INTO public.material VALUES ('386004f5-f0d7-4626-a75f-2d3c3158c504', true, 'Lụa', NULL);
+INSERT INTO public.brand VALUES ('39cea751-a426-422b-a0ac-569d711ddd38', true, 'Vải', NULL);
+INSERT INTO public.brand VALUES ('8c20116a-ab17-45a9-ae03-35c62cdb029f', true, 'Cotton', NULL);
+INSERT INTO public.brand VALUES ('61018676-af7e-419d-9b91-f246315fbc8c', true, 'Ka-ki', NULL);
+INSERT INTO public.brand VALUES ('87293753-e39e-473b-91e4-eae4fed864b5', true, 'Polyester', NULL);
+INSERT INTO public.brand VALUES ('386004f5-f0d7-4626-a75f-2d3c3158c504', true, 'Lụa', NULL);
 
 
 
@@ -1115,8 +1115,8 @@ ALTER TABLE ONLY public.favourite
 
 
 
-ALTER TABLE ONLY public.material
-    ADD CONSTRAINT material_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.brand
+    ADD CONSTRAINT brand_pkey PRIMARY KEY (id);
 
 
 

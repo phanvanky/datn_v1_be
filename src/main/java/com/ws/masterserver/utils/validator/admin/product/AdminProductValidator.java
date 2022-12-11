@@ -24,7 +24,7 @@ public class AdminProductValidator {
     private static final String IMAGE = "Ảnh";
     private static final String COLOR = "Màu";
     private static final String SIZE = "Size";
-    private static final String MATERIAL = "Chất liệu";
+    private static final String BRAND = "Chất liệu";
     private static final String CATEGORY = "Danh mục";
 
     private AdminProductValidator() {
@@ -36,7 +36,7 @@ public class AdminProductValidator {
         ValidatorUtils.validNullOrEmpty(NAME, dto.getName());
         ValidatorUtils.validOnlyCharacterAndNumber(NAME, dto.getName());
         ValidatorUtils.validLength(NAME, dto.getName(), 4, 100);
-        ValidatorUtils.validNullOrEmpty(MATERIAL, dto.getMaterialId());
+        ValidatorUtils.validNullOrEmpty(BRAND, dto.getBrandId());
         ValidatorUtils.validNullOrEmpty(DES, dto.getDes());
 //        ValidatorUtils.validOnlyCharacterAndNumber(DES, dto.getDes());
         ValidatorUtils.validLength(DES, dto.getDes(), 4, false);
@@ -54,8 +54,8 @@ public class AdminProductValidator {
             throw new WsException(WsCode.PRODUCT_NAME_EXISTS);
         }
 
-        if (!repository.materialRepository.existsByIdAndActive(dto.getMaterialId(), true)) {
-            throw new WsException(WsCode.MATERIAL_NOT_FOUND);
+        if (!repository.brandRepository.existsByIdAndActive(dto.getBrandId(), true)) {
+            throw new WsException(WsCode.BRAND_NOT_FOUND);
         }
     }
 
@@ -97,9 +97,9 @@ public class AdminProductValidator {
         ValidatorUtils.validNullOrEmpty(DES, payload.getDes());
 //        ValidatorUtils.validOnlyCharacterAndNumber(DES, payload.getDes());
         ValidatorUtils.validLength(DES, payload.getDes(), 4, false);
-        ValidatorUtils.validNullOrEmpty(MATERIAL, payload.getMaterialId());
-        if (!repository.materialRepository.existsById(payload.getMaterialId())) {
-            throw new WsException(WsCode.MATERIAL_NOT_FOUND);
+        ValidatorUtils.validNullOrEmpty(BRAND, payload.getBrandId());
+        if (!repository.brandRepository.existsById(payload.getBrandId())) {
+            throw new WsException(WsCode.BRAND_NOT_FOUND);
         }
         if (!StringUtils.isNullOrEmpty(payload.getCategoryId()) && !repository.categoryRepository.existsById(payload.getCategoryId())) {
             throw new WsException(WsCode.CATEGORY_NOT_FOUND);

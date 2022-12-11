@@ -10,6 +10,6 @@ public class ProductDto {
     private String name;
     private String des;
     private String categoryId;
-    private String materialId;
+    private String brandId;
     private List<OptionDto> options;
 }

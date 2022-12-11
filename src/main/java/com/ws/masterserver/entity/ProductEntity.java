@@ -30,8 +30,8 @@ public class ProductEntity {
     @Column(name = "category_id")
     private String categoryId;
 
-    @Column(name = "material_id")
-    private String materialId;
+    @Column(name = "brand_id")
+    private String brandId;
 
     private String des;
 
