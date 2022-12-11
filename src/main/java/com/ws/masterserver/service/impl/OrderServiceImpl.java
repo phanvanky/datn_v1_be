@@ -66,11 +66,7 @@ public class OrderServiceImpl implements OrderService {
     private String email;
 
     private static final String ORDER_INFO_TEMPLATE_NAME = "order_info.ftl";
-<<<<<<< Updated upstream
     private static final String FROM = "SHOES STORE<%s>";
-=======
-    private static final String FROM = "Shose Store<%s>";
->>>>>>> Stashed changes
     private static final String SUBJECT = "Xác nhận đơn hàng ";
 
     @Override

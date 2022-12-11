@@ -1,10 +1,6 @@
 spring:
   datasource:
-<<<<<<< Updated upstream
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/datn_v4}
-=======
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/datn_v7}
->>>>>>> Stashed changes
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/datn_v1}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123456}
   jpa:
