@@ -11,5 +11,9 @@ public interface BrandService {
 
     ResData<String> update(CurrentUser currentUser, BrandDto dto);
 
+    ResData<String> changeStatus(CurrentUser currentUser, String id);
+
+    Object detail(CurrentUser currentUser, String id);
+
     Object noPage();
 }
