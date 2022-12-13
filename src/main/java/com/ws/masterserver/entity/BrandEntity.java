@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.Date;
+
 import javax.persistence.*;
 
 /**
@@ -26,4 +29,8 @@ public class BrandEntity {
     private String name;
 
     private Boolean active;
+    
+    @Column(name = "created_date")
+    private Date createdDate;
+    
 }

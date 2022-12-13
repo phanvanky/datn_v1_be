@@ -1,5 +1,6 @@
 package com.ws.masterserver.controller.admin;
 
+import com.ws.masterserver.dto.admin.size.search.SizeReq;
 import com.ws.masterserver.utils.base.WsController;
 import com.ws.masterserver.utils.base.enum_dto.BrandDto;
 import com.ws.masterserver.utils.base.rest.ResData;
@@ -50,5 +51,10 @@ public class AdminBrandController extends WsController {
     public Object detail(String id) {
         log.info("start api detail with dto: {}", id);
         return service.brandService.detail(getCurrentUser(), id);
+    }
+    @Operation(summary = "API lấy tất cả Brand")
+    @PostMapping("/search")
+    public Object search(@RequestBody SizeReq payload) {
+        return service.brandService.search(getCurrentUser(), payload);
     }
 }
