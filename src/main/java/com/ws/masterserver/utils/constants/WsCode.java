@@ -26,6 +26,7 @@ public enum WsCode {
     SIZE_EXISTS_CODE("400", "Code size đã tồn tại"),
     SIZE_NOT_FOUND("400", "Size không đã tồn tại"),
 
+    DISCOUNT_NOT_FOUND("400", "Discount không đã tồn tại"),
     PRODUCT_OPTION_NOT_FOUND("400", "Không tìm thấy phân loại sản phẩm"),
     EMAIL_EXISTS("400", "Email đã tồn tại"),
     PHONE_EXISTS_V2("400", "Số điện thoại đã được đăng ký"),

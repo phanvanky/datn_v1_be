@@ -9,10 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/admin/brand")
@@ -39,5 +36,19 @@ public class AdminBrandController extends WsController {
     public ResponseEntity<ResData<String>> delete(@RequestBody BrandDto dto){
         log.info("start api delele with dto: {}", JsonUtils.toJson(dto));
         return ResponseEntity.status(HttpStatus.OK).body(service.brandService.delete(getCurrentUser(), dto));
+    }
+
+    @PostMapping("/change-status")
+    @Operation(summary = "API đổi trạng thái brand")
+    public ResponseEntity<ResData<String>> changeStatus(String id){
+        log.info("start api delete with dto: {}", JsonUtils.toJson(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.brandService.changeStatus(getCurrentUser(), id));
+    }
+
+    @GetMapping("/detail")
+    @Operation(summary = "API admin chi tiết brand")
+    public Object detail(String id) {
+        log.info("start api detail with dto: {}", id);
+        return service.brandService.detail(getCurrentUser(), id);
     }
 }

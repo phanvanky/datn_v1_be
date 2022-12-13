@@ -1,6 +1,9 @@
 package com.ws.masterserver.service.impl;
 
+import com.ws.masterserver.dto.admin.size.SizeResponseV2;
 import com.ws.masterserver.entity.BrandEntity;
+import com.ws.masterserver.entity.ColorEntity;
+import com.ws.masterserver.entity.SizeEntity;
 import com.ws.masterserver.service.BrandService;
 import com.ws.masterserver.utils.base.WsException;
 import com.ws.masterserver.utils.base.WsRepository;
@@ -75,5 +78,30 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Object noPage() {
         return repository.brandRepository.findByActive(true);
+    }
+
+    @Override
+    @Transactional
+    public ResData<String> changeStatus(CurrentUser currentUser, String id) {
+        AuthValidator.checkAdmin(currentUser);
+        if (id == null) {
+            throw new WsException(WsCode.COLOR_NOT_FOUND);
+        }
+        BrandEntity brand = repository.brandRepository.findById(id).orElse(null);
+        brand.setActive(!brand.getActive());
+        repository.brandRepository.save(brand);
+        log.info("delete finished at {} with response: {}", new Date(), JsonUtils.toJson(brand));
+        return new ResData<>(brand.getId(), WsCode.OK);
+    }
+
+    @Override
+    public Object detail(CurrentUser currentUser, String id) {
+        AuthValidator.checkAdminAndStaff(currentUser);
+        BrandEntity brand = repository.brandRepository.findById(id).orElseThrow(() -> new WsException(WsCode.ERROR_NOT_FOUND));
+        return SizeResponseV2.builder()
+                .id(brand.getId())
+                .name(brand.getName())
+                .active(brand.getActive())
+                .build();
     }
 }
