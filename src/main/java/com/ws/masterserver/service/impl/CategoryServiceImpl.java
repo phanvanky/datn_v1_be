@@ -159,6 +159,7 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("create() category before save: {}", JsonUtils.toJson(category));
         repository.categoryRepository.save(category);
         log.info("create() category after save: {}", JsonUtils.toJson(category));
+
         repository.productRepository.findByCategoryIdAndActive(category.getId(), true).stream()
                 .forEach(product -> {
                     product.setCategoryId("")
@@ -166,17 +167,18 @@ public class CategoryServiceImpl implements CategoryService {
                             .setUpdatedDate(new Date());
                     repository.productRepository.save(product);
                 });
-        dto.getProductIds().forEach(productId -> {
-            ProductEntity product = repository.productRepository.findByIdAndActive(productId, true);
-            log.info("create() product found before save: {}", JsonUtils.toJson(product));
-            if (product != null || !category.getId().equals(product.getCategoryId())) {
-                product.setCategoryId(category.getId())
-                        .setUpdatedBy(currentUser.getId())
-                        .setUpdatedDate(new Date());
-                repository.productRepository.save(product);
-                log.info("create() product found after save: {}", JsonUtils.toJson(product));
-            }
-        });
+//        dto.getProductIds().forEach(productId -> {
+//            ProductEntity product = repository.productRepository.findByIdAndActive(productId, true);
+//            log.info("create() product found before save: {}", JsonUtils.toJson(product));
+//            if (product != null || !category.getId().equals(product.getCategoryId())) {
+//                product.setCategoryId(category.getId())
+//                        .setUpdatedBy(currentUser.getId())
+//                        .setUpdatedDate(new Date());
+//                repository.productRepository.save(product);
+//                log.info("create() product found after save: {}", JsonUtils.toJson(product));
+//            }
+//        }
+//        );
 
         return category.getId();
     }
