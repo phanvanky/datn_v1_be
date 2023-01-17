@@ -15,4 +15,8 @@ public interface ProductOptionService {
 ResData<List<ColorResponse>> findColorNameBySize(String productId);
 
     ResData<List<SizeResponse>> findSizeByProductId(String productId);
+
+    ResData<ColorResponse> findCoLorByHex(String hex);
+
+    ResData<SizeResponse> findSizeByName(String sizeName);
 }
