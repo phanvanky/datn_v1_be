@@ -33,7 +33,7 @@ public enum ProductRevenueColumn implements ProductRevenueFunction {
             cell.setCellValue(dto.getCategoryName());
         }
     },
-    OPTION_NUMBER("Số loại") {
+    OPTION_NUMBER("Số lượng") {
         @Override
         public void setValue(Cell cell, ProductRevenueDto dto) {
             cell.setCellType(CellType.NUMERIC);

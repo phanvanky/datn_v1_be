@@ -23,7 +23,7 @@ public class WsConst {
         public static final String SORT_FIELD_DEFAULT = "createdDate";
         public static final String SORT_DIRECTION_DEFAULT = "desc";
         public static final String ROLE = "Role";
-        public static final String JWT_SECRET = "womanshirt2022";
+        public static final String JWT_SECRET = "shosestore2022";
         public static final String BEARER_SPACE = "Bearer ";
     }
 
