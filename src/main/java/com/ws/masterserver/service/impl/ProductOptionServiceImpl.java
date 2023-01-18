@@ -60,4 +60,16 @@ public ResData<List<ColorResponse>> findColorNameBySize(String productId) {
         List<SizeResponse> size = repository.productOptionRepository.findListSizeByProductId(productId);
         return new ResData<>(size, WsCode.OK);
     }
+
+    @Override
+    public ResData<ColorResponse> findCoLorByHex(String hex) {
+        ColorResponse res = repository.productOptionRepository.findByHexAndActive(hex, true);
+        return new ResData<>(res, WsCode.OK);
+    }
+
+    @Override
+    public ResData<SizeResponse> findSizeByName(String sizeName) {
+        SizeResponse res = repository.productOptionRepository.findSizeByName(sizeName, true);
+        return new ResData<>(res, WsCode.OK);
+    }
 }

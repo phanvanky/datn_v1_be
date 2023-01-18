@@ -3,20 +3,33 @@ package com.ws.masterserver.controller;
 import com.ws.masterserver.dto.customer.product.ProductRelatedReq;
 import com.ws.masterserver.dto.customer.product.ProductReq;
 import com.ws.masterserver.dto.admin.product.ProductDetailResponse;
+import com.ws.masterserver.excel.ExcelService;
 import com.ws.masterserver.utils.base.WsController;
 import com.ws.masterserver.utils.base.rest.ResData;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/product")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductController extends WsController {
+
+    @Autowired
+    ExcelService excelService;
+
+    @PostMapping("/import-excel")
+    public ResponseEntity<?> importExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.status(HttpStatus.OK).body(excelService.importProductToFileExcel(file));
+    }
 
     @PostMapping("/search")
     public ResponseEntity<?> search(@RequestBody ProductReq req){

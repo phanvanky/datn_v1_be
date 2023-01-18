@@ -51,6 +51,19 @@ List<ColorResponse> getListColorNameBySize(@Param("productId") String productId)
             "where po.productId = :productId")
     List<SizeResponse> findListSizeByProductId(@Param("productId") String productId);
 
+    @Query("select new com.ws.masterserver.dto.customer.product.ColorResponse(" +
+            "c.id,\n" +
+            "c.name)\n" +
+            "from ColorEntity c\n" +
+            "where c.hex = :hex AND c.active = :active")
+    ColorResponse findByHexAndActive(@Param("hex") String hex, @Param("active") boolean active);
+
+    @Query("select new com.ws.masterserver.dto.customer.size.response.SizeResponse(" +
+            "s.id,\n" +
+            "s.name)\n" +
+            "from SizeEntity s\n" +
+            "where s.name = :sizeName AND s.active = :active")
+    SizeResponse findSizeByName(@Param("sizeName") String sizeName, @Param("active") boolean active);
 
     @Query("select concat(c.name, ' ', s.name)\n" +
             "from ProductOptionEntity po\n" +
