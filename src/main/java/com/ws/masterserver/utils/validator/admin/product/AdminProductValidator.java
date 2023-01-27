@@ -37,9 +37,9 @@ public class AdminProductValidator {
         ValidatorUtils.validOnlyCharacterAndNumber(NAME, dto.getName());
         ValidatorUtils.validLength(NAME, dto.getName(), 4, 100);
         ValidatorUtils.validNullOrEmpty(BRAND, dto.getBrandId());
-        ValidatorUtils.validNullOrEmpty(DES, dto.getDes());
+//        ValidatorUtils.validNullOrEmpty(DES, dto.getDes());
 //        ValidatorUtils.validOnlyCharacterAndNumber(DES, dto.getDes());
-        ValidatorUtils.validLength(DES, dto.getDes(), 4, false);
+//        ValidatorUtils.validLength(DES, dto.getDes(), 4, false);
         validOptionDto(dto.getOptions(), repository);
         validExist(dto, repository);
     }

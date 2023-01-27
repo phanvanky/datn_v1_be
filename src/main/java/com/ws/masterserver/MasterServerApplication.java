@@ -41,7 +41,7 @@ public class MasterServerApplication {
 //            updateOrderStatus();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }   
     }
 
     private static void updateOrderStatus() {

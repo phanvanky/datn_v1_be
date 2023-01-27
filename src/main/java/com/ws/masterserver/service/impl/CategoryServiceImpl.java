@@ -71,9 +71,9 @@ public class CategoryServiceImpl implements CategoryService {
     public ResData<String> create(CurrentUser currentUser, CategoryDto dto) {
         AuthValidator.checkAdminAndStaff(currentUser);
         CategoryValidator.validCreate(dto);
-        if (Boolean.TRUE.equals(repository.categoryRepository.existsByNameIgnoreCaseAndActive(dto.getName().trim(), Boolean.TRUE))) {
-            throw new WsException(WsCode.CATEGORY_EXISTS_NAME);
-        }
+//        if (Boolean.TRUE.equals(repository.categoryRepository.existsByNameIgnoreCaseAndActive(dto.getName().trim(), Boolean.TRUE))) {
+//            throw new WsException(WsCode.CATEGORY_EXISTS_NAME);
+//        }
         TypeEntity typeEntity = repository.typeRepository.findById(dto.getTypeId()).orElse(null);
         if (typeEntity == null) {
             throw new WsException(WsCode.TYPE_NOT_FOUND);
